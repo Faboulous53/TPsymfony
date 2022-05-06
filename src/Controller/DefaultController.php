@@ -7,6 +7,7 @@ use App\Entity\Doctor;
 use App\Entity\OpeningHour;
 use App\Form\AppointmentFrontType;
 use App\Repository\OpeningHourRepository;
+use App\Repository\SocialNetworksRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,6 +54,13 @@ class DefaultController extends AbstractController
         return $this->render('default/_footer.html.twig', [
             'openingHours' => $openingHourRepository->findBy([], ['weekNumber' => 'ASC']),
             'today' => new \DateTime()
+        ]);
+    }
+
+    public function header(SocialNetworksRepository $socialNetworksRepository): Response
+    {
+        return $this->render('default/_header.html.twig', [
+            'socialNetworks' => $socialNetworksRepository->findBy([], ['social_name' => 'ASC'])
         ]);
     }
 }
